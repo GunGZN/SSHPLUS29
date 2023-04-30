@@ -1037,28 +1037,27 @@ else
 	fi
 	# Adquirindo easy-rsa
 	echo ""
-	fun_dep () {
-	wget -O ~/EasyRSA-3.0.1.tgz "https://github.com/OpenVPN/easy-rsa/releases/download/3.0.1/EasyRSA-3.0.1.tgz"
-	tar xzf ~/EasyRSA-3.0.1.tgz -C ~/
-	mv ~/EasyRSA-3.0.1/ /etc/openvpn/
-	mv /etc/openvpn/EasyRSA-3.0.1/ /etc/openvpn/easy-rsa/
-	chown -R root:root /etc/openvpn/easy-rsa/
-	rm -rf ~/EasyRSA-3.0.1.tgz
-	cd /etc/openvpn/easy-rsa/
-	# Create the PKI, set up the CA, the DH params and the server + client certificates
-	./easyrsa init-pki
-	./easyrsa --batch build-ca nopass
-	./easyrsa gen-dh
-	./easyrsa build-server-full server nopass
-	./easyrsa build-client-full SSHPLUS nopass
-	./easyrsa gen-crl
-	# Move the stuff we need
-	cp pki/ca.crt pki/private/ca.key pki/dh.pem pki/issued/server.crt pki/private/server.key /etc/openvpn/easy-rsa/pki/crl.pem /etc/openvpn
-	# CRL is read with each client connection, when OpenVPN is dropped to nobody
-	chown nobody:$GROUPNAME /etc/openvpn/crl.pem
-	# Generando key for tls-auth
-	openvpn --genkey --secret /etc/openvpn/ta.key
-	# Generando server.conf
+	fun_dep() {
+				wget -O ~/EasyRSA-3.0.1.tgz "https://github.com/PechScript/PhcnVpnManager/blob/MainGo/Install/EasyRSA-3.0.1.tgz?raw=true"
+				[[ ! -e $HOME/EasyRSA-3.0.1.tgz ]] && {
+					wget -O ~/EasyRSA-3.0.1.tgz "http://sshplus.xyz/script/EasyRSA-3.0.1.tgz"
+				}
+				tar xzf ~/EasyRSA-3.0.1.tgz -C ~/
+				mv ~/EasyRSA-3.0.1/ /etc/openvpn/
+				mv /etc/openvpn/EasyRSA-3.0.1/ /etc/openvpn/easy-rsa/
+				chown -R root:root /etc/openvpn/easy-rsa/
+				rm -rf ~/EasyRSA-3.0.1.tgz
+				cd /etc/openvpn/easy-rsa/
+				./easyrsa init-pki
+				./easyrsa --batch build-ca nopass
+				./easyrsa gen-dh
+				./easyrsa build-server-full server nopass
+				./easyrsa build-client-full VPSMANAGER nopass
+				./easyrsa gen-crl
+				cp pki/ca.crt pki/private/ca.key pki/dh.pem pki/issued/server.crt pki/private/server.key /etc/openvpn/easy-rsa/pki/crl.pem /etc/openvpn
+				chown nobody:$GROUPNAME /etc/openvpn/crl.pem
+				openvpn --genkey --secret /etc/openvpn/ta.key
+				# Generando server.conf
 	echo "port $porta
 proto $PROTOCOL
 dev tun
