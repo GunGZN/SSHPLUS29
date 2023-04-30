@@ -50,7 +50,7 @@ wget https://raw.githubusercontent.com/teamvpn/SSHPLUS29/master/Modulos/blockt.s
 chmod +x /bin/blockt
 wget https://raw.githubusercontent.com/teamvpn/SSHPLUS29/master/Modulos/botssh.sh -O /bin/botssh > /dev/null 2>&1
 chmod +x /bin/botssh
-wget https://raw.githubusercontent.com/LiLGun-X/menu-OxVPN/main/conexao.sh -O /bin/conexao > /dev/null 2>&1
+wget https://raw.githubusercontent.com/GunGZN/SSHPLUS29/master/Modulos/conexao.sh -O /bin/conexao > /dev/null 2>&1
 chmod +x /bin/conexao
 wget https://raw.githubusercontent.com/teamvpn/SSHPLUS29/master/Modulos/criarteste.sh -O /bin/criarteste > /dev/null 2>&1
 chmod +x /bin/criarteste
